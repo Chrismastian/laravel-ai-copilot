@@ -17,11 +17,15 @@ class AIController extends Controller
     public function chat(Request $request)
     {
         $request->validate([
-            'prompt' => 'required|string|max:2000'
+            'prompt' => 'required|string|max:2000',
+            'model' => 'nullable|string|max:100'
         ]);
 
         try {
-            $reply = $this->aiService->chat($request->input('prompt'));
+            $reply = $this->aiService->chat(
+                $request->input('prompt'),
+                $request->input('model')
+            );
             return response()->json(['success' => true, 'reply' => $reply]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
