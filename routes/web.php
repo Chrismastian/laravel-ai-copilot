@@ -13,8 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::post('/ai/chat', [App\Http\Controllers\AIController::class, 'chat']);
