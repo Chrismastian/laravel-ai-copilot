@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class AIService
 {
-    protected string $apiKey;
+    protected ?string $apiKey;
     protected string $baseUrl;
     protected string $model;
 
@@ -19,6 +19,10 @@ class AIService
 
     public function chat(string $prompt): string
     {
+        if (empty($this->apiKey)) {
+            throw new \Exception('NINE_ROUTERS_API_KEY is not configured in .env');
+        }
+
         $response = Http::withToken($this->apiKey)
             ->post("{$this->baseUrl}/chat/completions", [
                 'model' => $this->model,
