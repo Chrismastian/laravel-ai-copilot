@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'ninerouters' => [
+        'key' => env('NINE_ROUTERS_API_KEY'),
+        'base_url' => env('NINE_ROUTERS_BASE_URL', 'https://api.9routers.com/v1'),
+        'model' => env('NINE_ROUTERS_MODEL', 'gpt-4o-mini'),
+    ],
+
 ];
