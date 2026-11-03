@@ -20,7 +20,12 @@ class AIService
     public function chat(string $prompt, ?string $model = null): string
     {
         if (empty($this->apiKey)) {
-            throw new \Exception('NINE_ROUTERS_API_KEY is not configured in .env');
+            // Check if request passed an api_key dynamically
+            if (request()->has('api_key')) {
+                $this->apiKey = request()->input('api_key');
+            } else {
+                throw new \Exception('NINE_ROUTERS_API_KEY is not configured in .env and no api_key was provided in request.');
+            }
         }
 
         if (empty($this->baseUrl)) {
